@@ -1,103 +1,116 @@
+import type { Metadata } from "next";
+import Cases from "@/components/Cases";
+import FAQ from "@/components/FAQ";
+import Features from "@/components/Features";
+import Flows from "@/components/Flows";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import Hero from "@/components/Hero";
+import Plans from "@/components/Plans";
 import Image from "next/image";
+import FAQSchema from "@/components/FAQSchema";
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://pocket-lounge.jp"), // ←本番ドメインに差し替え
+  title: "結婚式のキッズスペース｜レンタルで簡単・清潔・安全｜ポケットラウンジ",
+  description:
+    "結婚式や法人イベントで子ども連れゲストも安心。清潔な大判マットと厳選おもちゃ一式を全国へ直送。設置ガイド付きで簡単、安全にキッズスペースを用意できます。",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "結婚式のキッズスペース｜レンタルで簡単・清潔・安全",
+    description:
+      "会場に直送・簡単設置。清潔なマット＋おもちゃ一式で、子連れゲストが安心して過ごせる空間を。",
+    url: "https://pocket-lounge.jp/",
+    siteName: "ポケットラウンジ",
+    images: [{ url: "/ogp.jpg", width: 1200, height: 630 }],
+    locale: "ja_JP",
+    type: "website",
+  },
+  twitter: { card: "summary_large_image" },
+};
+
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <>
+     {/* 視覚的にはHeroの見出しを使いつつ、SEO用のH1を明示 */}
+      <h1 className="sr-only">
+        結婚式・法人イベントのキッズスペース｜レンタルで簡単・清潔・安全｜ポケットラウンジ
+      </h1>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+     <Header/>
+     <Hero/>
+     <Plans/>
+     <Features/>
+     <Flows/>
+     <Cases/>
+     <FAQ/>
+     <FAQSchema /> 
+     <Footer/>
+
+     {/* JSON-LD（構造化データ） */}
+      <script
+        type="application/ld+json"
+        // Service + Organization を最小構成で
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: "結婚式・イベント向けキッズスペースレンタル",
+            serviceType: "Kids' play area rental for weddings and events",
+            areaServed: "JP",
+            provider: {
+              "@type": "Organization",
+              name: "ポケットラウンジ",
+              url: "https://pocket-lounge.jp",
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "customer service",
+                email: "info@pocketpark.jp"
+              }
+            },
+            offers: {
+              "@type": "AggregateOffer",
+              priceCurrency: "JPY",
+              // ざっくり最小/最大の目安。Plansの価格に合わせる
+              lowPrice: "19800",
+              highPrice: "69800",
+              availability: "https://schema.org/InStock"
+            },
+            url: "https://pocket-lounge.jp"
+          }),
+        }}
+      />
+      {/* FAQ構造化（FAQコンポーネントの内容に合わせて後で差し替え推奨） */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "結婚式当日のどのタイミングで設置しますか？",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text:
+                    "前日到着〜当日朝に設置いただくケースが多いです。設置ガイド・片付けチェックリストを同梱しています。"
+                }
+              },
+              {
+                "@type": "Question",
+                name: "衛生管理はどうしていますか？",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text:
+                    "すべて消毒・検品済みのマットとおもちゃをお届けします。気になる点があれば事前にご相談ください。"
+                }
+              }
+            ]
+          }),
+        }}
+      />
+    </>
   );
 }
