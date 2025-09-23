@@ -21,14 +21,16 @@ export const metadata: Metadata = {
 };
 
 type Props = {
-  searchParams?: { q?: string; category?: string };
+  searchParams?: Promise<{ q?: string; category?: string }>;
 };
 
-export default function GuidesPage({ searchParams }: Props) {
-  const q = (searchParams?.q ?? "").trim().toLowerCase();
-  const selectedCat = (searchParams?.category ?? "").trim().toLowerCase();
+export default async function GuidesPage({ searchParams }: Props) {
+  const sp = await searchParams;
+  const q = (sp?.q ?? "").trim().toLowerCase();
+  const selectedCat = (sp?.category ?? "").trim().toLowerCase();
 
   const allGuides = getAllGuidesMeta(); // 日付降順想定（lib側）
+
   // カテゴリ一覧を抽出
   const categorySet = new Set<string>();
   for (const g of allGuides) {
@@ -38,7 +40,7 @@ export default function GuidesPage({ searchParams }: Props) {
     for (const c of c2) categorySet.add(c);
   }
   const allCategories = Array.from(categorySet).sort((a, b) =>
-    a.localeCompare(b, "ja")
+    a.localeCompare(b, "ja"),
   );
 
   // フィルタ
