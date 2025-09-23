@@ -2,22 +2,27 @@
 import type { Metadata } from "next";
 import { compileGuide, getAllGuideSlugs } from "@/lib/mdx";
 import Header from "@/components/Header";
-import InlineToc from "@/components/InlineToc"; // ← 追加
+import InlineToc from "@/components/InlineToc";
 import Image from "next/image";
-import './local.css';
+import "./local.css";
 import Link from "next/link";
 import Footer from "@/components/Footer";
 
-type Props = { params: { slug: string } };
+// 自前で型定義（Next.js 15 では PageProps がない）
+type PageProps<T extends Record<string, any>> = {
+  params: Promise<T>;
+};
 
+// SSG: /guides/[slug] の静的パス生成
 export function generateStaticParams() {
   return getAllGuideSlugs().map((slug) => ({ slug }));
 }
 
+// メタデータ
 export async function generateMetadata(
-  { params }: { params: Promise<{ slug: string }> }
+  { params }: PageProps<{ slug: string }>
 ): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug } = await params; // Promise を await
   const { frontmatter } = await compileGuide(slug);
 
   const title = frontmatter.title ?? "ガイド";
@@ -30,15 +35,22 @@ export async function generateMetadata(
     description,
     alternates: { canonical },
     openGraph: {
-      title, description, url: canonical, type: "article",
+      title,
+      description,
+      url: canonical,
+      type: "article",
       images: [{ url: ogImage }],
     },
   };
 }
 
-export default async function GuideDetailPage({ params }: Props) {
-  const { frontmatter, content } = await compileGuide(params.slug);
-  const hero = frontmatter.ogImage; // 画像を出すなら
+// ページ本体
+export default async function GuideDetailPage(
+  { params }: PageProps<{ slug: string }>
+) {
+  const { slug } = await params; // Promise を await
+  const { frontmatter, content } = await compileGuide(slug);
+  const hero = frontmatter.ogImage;
 
   return (
     <>
@@ -59,12 +71,19 @@ export default async function GuideDetailPage({ params }: Props) {
           {hero && (
             <div className="not-prose my-6">
               <div className="relative w-full aspect-[16/9] overflow-hidden rounded-2xl bg-zinc-100">
-                <Image src={hero} alt={frontmatter.title ?? ""} fill className="object-cover" />
+                <Image
+                  src={hero}
+                  alt={frontmatter.title ?? ""}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 896px"
+                  priority
+                />
               </div>
             </div>
           )}
 
-          {/* ★ ここが重要：MDX本文を data-article-root で囲む */}
+          {/* MDX本文 */}
           <article
             data-article-root
             className="prose prose-zinc max-w-none prose-headings:scroll-mt-24"
@@ -73,26 +92,29 @@ export default async function GuideDetailPage({ params }: Props) {
           </article>
 
           <div className="mt-10 text-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-700"
-              >
-                見積り・空き確認へ
-              </Link>
-            </div>
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-700"
+            >
+              見積り・空き確認へ
+            </Link>
+          </div>
         </section>
 
         {/* 目次（Sticky） */}
-        <aside data-inline-toc className="lg:col-span-4 lg:sticky lg:top-24 self-start">
+        <aside
+          data-inline-toc
+          className="lg:col-span-4 lg:sticky lg:top-24 self-start"
+        >
           <InlineToc
             title="目次"
-            accent="emerald"      // テーマ色（sky/cyan/emerald/blue）
-            scrollOffset={72}     // 固定ヘッダーの高さに合わせて（px）
+            accent="emerald"
+            scrollOffset={72}
             rootSelector="[data-article-root]"
           />
         </aside>
       </main>
-      <Footer/>
+      <Footer />
     </>
   );
 }
