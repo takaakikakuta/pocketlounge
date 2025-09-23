@@ -14,11 +14,15 @@ export function generateStaticParams() {
   return getAllGuideSlugs().map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { frontmatter } = await compileGuide(params.slug);
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const { slug } = await params;
+  const { frontmatter } = await compileGuide(slug);
+
   const title = frontmatter.title ?? "ガイド";
   const description = frontmatter.excerpt ?? "キッズスペース準備のためのガイド";
-  const canonical = frontmatter.canonical ?? `/guides/${params.slug}`;
+  const canonical = frontmatter.canonical ?? `/guides/${slug}`;
   const ogImage = frontmatter.ogImage ?? "/ogp.jpg";
 
   return {
@@ -27,9 +31,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: { canonical },
     openGraph: {
       title, description, url: canonical, type: "article",
-      images: [{ url: ogImage, width: 1200, height: 630 }],
+      images: [{ url: ogImage }],
     },
-    robots: frontmatter.noindex ? { index: false, follow: true } : undefined,
   };
 }
 
