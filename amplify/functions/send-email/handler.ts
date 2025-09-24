@@ -54,7 +54,7 @@ const reviewLine =
     promoLine,
     reviewLine,
     "----------------------------",
-  ]
+  ].filter(Boolean).join("\n");
 
   const userText = [
       `${args.name} 様`,

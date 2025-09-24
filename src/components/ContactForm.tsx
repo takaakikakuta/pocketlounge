@@ -141,7 +141,7 @@ useEffect(() => {
     console.log(promo);
     
     try {
-      await client.queries.sendMail({
+      const { data, errors } = await client.queries.sendMail({
         plan: plan || null,
         arrivalDate,
         useDate,
@@ -156,9 +156,22 @@ useEffect(() => {
         review: review || null,
       });
 
+       if (errors?.length) {
+          console.error("GraphQL errors:", errors);
+          return setError(`送信失敗（GraphQL）: ${errors[0].message ?? "unknown"}`);
+        }
+
+        // サーバーのハンドラーが "OK" / "ERROR" を返す実装の場合
+        // if (data?.sendMail !== "OK") {
+        //   console.error("Function returned:", data?.sendMail);
+        //   return setError(`送信失敗（Function）: ${String(data?.sendMail)}`);
+        // }
+
       router.replace("/contact/thanks?src=contact");
     } catch (error) {
       console.error("Error sending mail:", error);
+    } finally {
+  setSubmitting(false);
     }
   }
 
@@ -227,16 +240,6 @@ useEffect(() => {
                 />
                 掲載（サイト・SNS・提案資料等）に同意します
                 </label>
-                {/* <label className="grid gap-1">
-                <span className="text-xs text-zinc-600">ご感想（任意・20〜60字程度）</span>
-                <textarea
-                    value={review}
-                    onChange={(e) => setReview(e.target.value)}
-                    placeholder="例）会場に合う色味で清潔、保護者も安心して過ごせました。"
-                    className="min-h-[80px] rounded-lg border border-emerald-200 bg-white px-3 py-2 text-sm"
-                    disabled={promo !== "photo5000"}
-                />
-                </label> */}
                 <p className="text-[12px] text-emerald-900/80">
                 ※ データ提出はご利用後2週間以内（横16:9推奨）。個人が特定される情報は掲載しません。
                 </p>

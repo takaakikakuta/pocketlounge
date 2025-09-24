@@ -1,18 +1,17 @@
-// app/contact/page.tsx
-import { Suspense } from "react";
-import ContactClient from "./ContactClient";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import ContactForm from '@/components/ContactForm'
+import Footer from '@/components/Footer'
+import Header from '@/components/Header'
+import React from 'react'
 
-
-export default function ContactPage() {
+const page = () => {
   return (
-    <Suspense fallback={<div className="p-6 text-zinc-500">読み込み中...</div>}>
-      <Header/>
-      <main className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
-        <ContactClient />
-      </main>
-      <Footer/>
-    </Suspense>
-  );
+    <>
+    <Header/>
+    <main className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10">
+      <ContactForm/>
+    </main> 
+    <Footer/>
+    </>
+  )
 }
+export default page
