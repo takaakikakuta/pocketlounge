@@ -8,7 +8,6 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Plans from "@/components/Plans";
 import Image from "next/image";
-import FAQSchema from "@/components/FAQSchema";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://pocket-lounge.jp"), // ←本番ドメインに差し替え
@@ -45,7 +44,6 @@ export default function Home() {
      <Flows/>
      <Cases/>
      <FAQ/>
-     <FAQSchema /> 
      <Footer/>
 
      {/* JSON-LD（構造化データ） */}
