@@ -137,8 +137,6 @@ useEffect(() => {
 }
 
     setSubmitting(true);
-
-    console.log(promo);
     
     try {
       const { data, errors } = await client.queries.sendMail({
@@ -160,12 +158,6 @@ useEffect(() => {
           console.error("GraphQL errors:", errors);
           return setError(`送信失敗（GraphQL）: ${errors[0].message ?? "unknown"}`);
         }
-
-        // サーバーのハンドラーが "OK" / "ERROR" を返す実装の場合
-        // if (data?.sendMail !== "OK") {
-        //   console.error("Function returned:", data?.sendMail);
-        //   return setError(`送信失敗（Function）: ${String(data?.sendMail)}`);
-        // }
 
       router.replace("/contact/thanks?src=contact");
     } catch (error) {
