@@ -32,6 +32,12 @@ export const metadata: Metadata = {
     ],
     locale: "ja_JP",
     type: "website",
+    
+  },
+   icons: {
+    icon: "/logo.png", // publicフォルダ直下のファイル
+    shortcut: "/logo.png",
+    apple: "/apple-touch-icon.png",
   },
 };
 
