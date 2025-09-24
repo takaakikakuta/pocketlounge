@@ -146,7 +146,9 @@ export default function ToysList({ items }: Props) {
                 <Image src={it.thumb} alt={it.title} fill className="object-cover" />
               </div>
               <div className="p-5">
-
+                <p className="mt-1 text-lg text-zinc-600 line-clamp-2">
+                  {it.title || ""}
+                </p>
                 <p className="mt-1 text-sm text-zinc-600 line-clamp-2">
                   {it.short || ""}
                 </p>

@@ -12,8 +12,8 @@ export const metadata = {
 const TOYS: ToyItem[] = [
   {
     id: "blocks-giant",
-    title: "ビッグブロックセット",
-    thumb: "https://pocketpark.s3.ap-northeast-1.amazonaws.com/items/item1.jpg",
+    title: "ブロック・積み木セット",
+    thumb: "https://pocketpark.s3.ap-northeast-1.amazonaws.com/items/item2.jpg",
     price: 4800,
     categories: ["創作", "大型"],
     ages: ["3-6", "4-7"],
@@ -24,7 +24,7 @@ const TOYS: ToyItem[] = [
   {
     id: "rail-basic",
     title: "レールトイ基本セット",
-    thumb: "/rentals/toys/rail-basic.jpg",
+    thumb: "https://pocketpark.s3.ap-northeast-1.amazonaws.com/items/item3.jpg",
     price: 3800,
     categories: ["乗り物"],
     ages: ["3-6"],
@@ -35,7 +35,7 @@ const TOYS: ToyItem[] = [
   {
     id: "tent-soft-zone",
     title: "ソフトテントミニ",
-    thumb: "/rentals/toys/tent-mini.jpg",
+    thumb: "https://pocketpark.s3.ap-northeast-1.amazonaws.com/items/item1.jpg",
     price: 5800,
     categories: ["演出", "ごっこ"],
     ages: ["2-5", "3-6"],
@@ -45,13 +45,13 @@ const TOYS: ToyItem[] = [
   },
   {
     id: "puzzle-floor",
-    title: "ラージピースパズル",
-    thumb: "/rentals/toys/puzzle-large.jpg",
+    title: "ぬいぐるみ",
+    thumb: "https://pocketpark.s3.ap-northeast-1.amazonaws.com/items/item4.jpg",
     price: 2400,
     categories: ["創作"],
     ages: ["4-7"],
     stock: "in",
-    short: "散らかりにくい大きめピース。",
+    short: "人気キャラクターのぬいぐるみ",
     plans: ["regular", "luxury"],
   },
 ];
